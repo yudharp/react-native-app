@@ -1,139 +1,89 @@
-import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Alert } from 'react-native';
+import React from "react";
+import { View, Image, Text, TouchableOpacity, StyleSheet, ScrollView } from "react-native";
+import Carousel from "react-native-snap-carousel";
 
-const App = () => {
-  const [board, setBoard] = useState(Array(9).fill(null));
-  const [xIsNext, setXIsNext] = useState(true);
+const ImageTextButtonLayout = ({ title, buttonText, onPressButton }) => {
+  const carouselItems = [
+    {
+      id: 1,
+      image: require("./src/assets/img/tower-bank-syariah-indonesia-bsi-istimewa_169.png"),
+      caption: "Gedungnya",
+    },
+    {
+      id: 2,
+      image: require("./src/assets/img/tower-bank-syariah-indonesia-bsi-istimewa_169.png"),
+      caption: "ya gedung lagi",
+    },
+    // Add more items as needed
+  ];
 
-  const calculateWinner = (squares) => {
-    const lines = [
-      [0, 1, 2],
-      [3, 4, 5],
-      [6, 7, 8],
-      [0, 3, 6],
-      [1, 4, 7],
-      [2, 5, 8],
-      [0, 4, 8],
-      [2, 4, 6],
-    ];
-    for (let i = 0; i < lines.length; i++) {
-      const [a, b, c] = lines[i];
-      if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-        return squares[a];
-      }
-    }
-    return null;
-  };
-
-  const handleClick = (index) => {
-    const squares = [...board];
-    if (calculateWinner(squares) || squares[index]) {
-      return;
-    }
-    squares[index] = xIsNext ? 'X' : 'O';
-    setBoard(squares);
-    setXIsNext(!xIsNext);
-  };
-
-  const renderSquare = (index) => (
-    <TouchableOpacity style={styles.square} onPress={() => handleClick(index)}>
-      <Text style={styles.squareText}>{board[index]}</Text>
-    </TouchableOpacity>
+  const renderCarouselItem = ({ item }) => (
+    <View style={styles.carouselItem}>
+      <Image
+        style={styles.carouselImage}
+        source={item.image}
+        resizeMode="cover"
+      />
+      <Text style={styles.carouselCaption}>{item.caption}</Text>
+    </View>
   );
 
-  const winner = calculateWinner(board);
-  const status = winner ? `Winner: ${winner}` : `Next Player: ${xIsNext ? 'X' : 'O'}`;
-
-  const resetGame = () => {
-    setBoard(Array(9).fill(null));
-    setXIsNext(true);
-  };
-
   return (
-    <View style={styles.container}>
-      <Text style={styles.status}>{status}</Text>
-      <View style={styles.board}>
-        <View style={styles.row}>
-          {renderSquare(0)}
-          {renderSquare(1)}
-          {renderSquare(2)}
-        </View>
-        <View style={styles.row}>
-          {renderSquare(3)}
-          {renderSquare(4)}
-          {renderSquare(5)}
-        </View>
-        <View style={styles.row}>
-          {renderSquare(6)}
-          {renderSquare(7)}
-          {renderSquare(8)}
-        </View>
+      <View style={styles.container}>
+        <Carousel
+          data={carouselItems}
+          renderItem={renderCarouselItem}
+          sliderWidth={300}
+          itemWidth={300}
+          loop={true}
+        />
+
+        <Text style={styles.title}>{title} Rugi Dong </Text>
+        <TouchableOpacity style={styles.button} onPress={onPressButton}>
+          <Text style={styles.buttonText}>{buttonText}Yang Bener Aja</Text>
+        </TouchableOpacity>
       </View>
-      <TouchableOpacity style={styles.resetButton} onPress={resetGame}>
-        <Text style={styles.resetButtonText}>Reset Game</Text>
-      </TouchableOpacity>
-    </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    justifyContent: "center",
+    alignItems: "center",
   },
-  input: {
-    width: 200,
-    height: 40,
-    borderColor: 'gray',
-    borderWidth: 1,
-    margin: 10,
-    padding: 5,
+  carouselItem: {
+    borderRadius: 8,
+    overflow: "hidden",
   },
-  buttonContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    margin: 10,
+  carouselImage: {
+    width: 300,
+    height: 200,
   },
-  result: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    margin: 10,
+  carouselCaption: {
+    fontSize: 18,
+    fontWeight: "bold",
+    padding: 8,
+    backgroundColor: "rgba(0,0,0,0.5)",
+    color: "white",
+    textAlign: "center",
   },
-  status: {
-    marginBottom: 10,
-    fontSize: 20,
-    fontWeight: 'bold',
+  title: {
+    fontSize: 18,
+    fontWeight: "bold",
+    marginBottom: 20,
   },
-  board: {
-    flexDirection: 'column',
-  },
-  row: {
-    flexDirection: 'row',
-  },
-  square: {
-    width: 60,
-    height: 60,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderWidth: 1,
-    borderColor: '#999',
-  },
-  squareText: {
-    fontSize: 24,
-  },
-  resetButton: {
-    marginTop: 20,
-    padding: 10,
-    backgroundColor: '#007BFF',
+  button: {
+    backgroundColor: "#00A39D",
+    paddingVertical: 10,
+    paddingHorizontal: 20,
     borderRadius: 5,
   },
-  resetButtonText: {
-    color: '#fff',
+  buttonText: {
+    color: "#F7AD3D",
     fontSize: 16,
+    fontWeight: "bold",
   },
 });
 
-export default App;
+export default ImageTextButtonLayout;
