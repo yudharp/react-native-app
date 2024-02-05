@@ -12,7 +12,7 @@ const ImageTextButtonLayout = ({ title, buttonText, onPressButton }) => {
     {
       id: 2,
       image: require("./src/assets/img/tower-bank-syariah-indonesia-bsi-istimewa_169.png"),
-      caption: "ya gedung lagi",
+      caption: "bukan gedung",
     },
     // Add more items as needed
   ];
