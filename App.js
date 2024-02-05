@@ -1,21 +1,46 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StatusBar } from "expo-status-bar";
+import React from "react";
+import { View, Text, StyleSheet } from "react-native";
 
-export default function App() {
+const MyComponent = () => {
   return (
     <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
+      <Text style={styles.text}>Yudha Ananda</Text>
+      <Text style={styles.text}>Mila - Nisa</Text>
+      <Text style={styles.text}>Ara - Tyas</Text>
+      <Text style={styles.text}>Aul - Claryta</Text>
+      <Text style={styles.text}>MW - Arva</Text>
+
+      <View style={styles.separator} />
+
+      <View style={styles.box} />
+      <View style={styles.box} />
+      <View style={styles.box} />
+      <View style={styles.box} />
+      <View style={styles.box} />
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  text: {
+    fontSize: 16,
+    marginBottom: 10,
+  },
+  separator: {
+    height: 20,
+  },
+  box: {
+    width: 50,
+    height: 50,
+    backgroundColor: "pink",
+    marginVertical: 10,
   },
 });
+
+export default MyComponent;
